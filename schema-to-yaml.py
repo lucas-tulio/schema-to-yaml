@@ -82,7 +82,12 @@ with open("schema.yaml", "w") as out:
       # Length
       field_length = get_field_length(column_desc)
       if field_length > 0:
-        out.write("      length: " + str(field_length) + "\n")
+        if field_type == "string" and field_length == 255:
+          pass
+        elif field_type == "boolean" or field_type == "int":
+          pass
+        else:
+          out.write("      length: " + str(field_length) + "\n")
 
       # Not Null?
       field_not_null = is_field_not_null(column_desc)
