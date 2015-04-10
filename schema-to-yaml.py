@@ -11,7 +11,7 @@ def get_field_type(column_desc):
   if "varchar" in field_type:
     return "string"
   elif "tinyint" in field_type or "boolean" in field_type:
-    return "tinyint"
+    return "boolean"
   elif "int" in field_type:
     return "int"
   elif "text" in field_type:
@@ -86,7 +86,7 @@ with open("schema.yaml", "w") as out:
       # Not Null?
       field_not_null = is_field_not_null(column_desc)
       if field_not_null:
-        out.write("      not_null: true\n")
+        out.write("      required: true\n")
 
       # Unique?
       field_unique = is_field_unique(column_desc)
