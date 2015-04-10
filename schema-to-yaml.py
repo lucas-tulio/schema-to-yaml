@@ -34,6 +34,10 @@ def is_field_not_null(column_desc):
   not_null = column_desc[2]
   return not_null == "NO"
 
+def is_field_unique(column_desc):
+  field_is_unique = column_desc[3] == "UNI"
+  return field_is_unique
+
 def get_field_default_value(column_desc):
   default_value = column_desc[4]
   if default_value != "":
@@ -82,6 +86,11 @@ with open("schema.yaml", "w") as out:
       # Not Null?
       field_not_null = is_field_not_null(column_desc)
       if field_not_null:
+        out.write("      not_null: true\n")
+
+      # Unique?
+      field_unique = is_field_unique(column_desc)
+      if field_unique:
         out.write("      unique: true\n")
 
       # Default value?
